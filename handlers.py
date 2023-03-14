@@ -36,8 +36,10 @@ async def handle_get_photo(update):
     photo = get_photo()
     if photo is None:
         # Уведомление Дмитрия и Искандера о неработающей камере
-        await send_message_to(489419770, "Камера недоступна, просьба перезапустить ее")
-        await send_message_to(381249598, "Камера недоступна, просьба перезапустить ее")
+        error_text = "*[Уведомление]*\n\n" \
+                     "Камера недоступна, просьба перезапустить ее"
+        await send_message_to(489419770, error_text)
+        await send_message_to(381249598, error_text)
         
         await update.answer("Произошла ошибка")
         return
@@ -159,7 +161,7 @@ async def send_message_to(tg_id, message):
 
     bot = Bot(token=token)
 
-    await bot.send_message(tg_id, message)
+    await bot.send_message(tg_id, message, parse_mode=types.ParseMode.MARKDOWN)
 
 
 async def handle_unknown_message(message: types.Message):

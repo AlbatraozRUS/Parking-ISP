@@ -15,9 +15,12 @@ def get_photo():
         os.system(
             "wget http://parking.melnik.ru:43434/cgi-bin/test.jpg -O photo.jpg")
 
+        if not os.stat('photo.jpg').st_size:
+            raise FileNotFoundError
+            
         return open('photo.jpg', 'rb')
     except FileNotFoundError:
-        logger.error("Файл photo.jpg не найден")
+        logger.error("Файл с фото не найден")
         return None
 
 
