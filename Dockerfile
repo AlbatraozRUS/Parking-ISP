@@ -10,6 +10,8 @@ RUN apt-get update && \
 
 RUN pip install aiogram==2.25.1
 
-ENV TG_TOKEN=6204595239:AAF0TMF7tTM4vfDi5ZuR-a4elY8BDLasVzM
+RUN ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+
+ENV TG_TOKEN=
 
 CMD [ "python", "Run.py"]

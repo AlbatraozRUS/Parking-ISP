@@ -3,6 +3,7 @@ import logging
 import os
 
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.utils.exceptions import BadRequest
 
 #------------------------------------------------------------------------------
 
@@ -21,6 +22,9 @@ def get_photo():
         return open('photo.jpg', 'rb')
     except FileNotFoundError:
         logger.error("Файл с фото не найден")
+        return None
+    except BadRequest:
+        logger.error("Фото повреждено")
         return None
 
 
@@ -62,6 +66,7 @@ def add_user(TG_name):
 def load_users():
     with open("users.json", "r") as f:
         return json.load(f)
+
 
 def get_main_keyboard(roles):
     keyboard = InlineKeyboardMarkup()
